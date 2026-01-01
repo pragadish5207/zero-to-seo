@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zero to SEO | Master Certification</title>
+	<meta name="description" content="A professional 6-module SEO certification course built by a B.Com Student.">
+<meta name="author" content="Pragadish5207">
+<meta property="og:title" content="Zero to SEO | Master Certification">
+<meta property="og:description" content="Join the free SEO foundation course. Learn, quiz, and get certified.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:ital,wght@0,700;1,400&family=Courier+Prime&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #00ff9d;
+            --gold: #ffd700;
+            --bg-dark: #0f0f0f;
+            --bg-panel: #1a1a1a;
+            --text-main: #e0e0e0;
+            --text-muted: #999;
+            --border: 1px solid #333;
+            --font: 'Inter', sans-serif;
+            --font-serif: 'Playfair Display', serif;
+            --font-mono: 'Courier Prime', monospace;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: var(--font);
+            line-height: 1.6;
+            height: 100vh;
+            display: flex;
+            overflow: hidden;
+        }
+
+        /* --- SCROLLBAR --- */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #000; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--primary); }
+
+        /* --- SIDEBAR --- */
+        #sidebar {
+            width: 280px; background: var(--bg-panel); border-right: var(--border);
+            display: flex; flex-direction: column; padding: 25px; flex-shrink: 0;
+            position: relative; overflow-y: auto;
+        }
+        .brand { font-size: 1.6rem; font-weight: 800; color: var(--primary); margin-bottom: 30px; letter-spacing: -1px; }
+        .nav-item {
+            padding: 12px; color: var(--text-muted); cursor: pointer;
+            border-radius: 6px; margin-bottom: 5px; transition: 0.2s; font-weight: 500; font-size: 0.95rem;
+        }
+        .nav-item:hover, .nav-item.active { background: #252525; color: #fff; border-left: 3px solid var(--primary); padding-left: 9px; }
+        .nav-item.gold-item { color: var(--gold); }
+        
+        .sidebar-footer {
+            margin-top: 20px; padding-top: 20px; border-top: 1px solid #333;
+            font-size: 0.75rem; color: #666;
+        }
+
+        /* --- MAIN CONTENT --- */
+        #main { flex: 1; padding: 40px; overflow-y: auto; scroll-behavior: smooth; position: relative; }
+
+        /* Dashboard & Grids */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+        .card { background: var(--bg-panel); border: var(--border); padding: 25px; border-radius: 12px; }
+
+        /* Buttons */
+        .btn-primary {
+            background: var(--primary); color: #000; border: none; padding: 12px 24px; 
+            border-radius: 6px; font-weight: bold; cursor: pointer; transition: 0.2s;
+        }
+        .btn-primary:hover { transform: scale(1.05); }
+        
+        .btn-gold {
+            background: var(--gold); color: #000; border: none; padding: 15px 30px; 
+            border-radius: 6px; font-weight: bold; cursor: pointer; width: 100%; font-size: 1.1rem;
+        }
+        .btn-gold:disabled { background: #333; color: #666; cursor: not-allowed; }
+
+        /* --- MODULE READING AREA --- */
+        #content-area { max-width: 900px; margin: 0 auto; display: none; padding-bottom: 100px; }
+        .lesson-header { border-bottom: 1px solid #333; padding-bottom: 20px; margin-bottom: 30px; display: flex; justify-content: space-between; align-items: center; }
+        .lesson-header h1 { font-size: 2.5rem; color: var(--primary); max-width: 70%; line-height: 1.2; }
+        
+        /* Summary Button */
+        .btn-summary {
+            background: #222; border: 1px solid var(--primary); color: var(--primary);
+            padding: 10px 20px; border-radius: 30px; cursor: pointer; font-weight: bold;
+            display: flex; align-items: center; gap: 8px; transition: 0.3s;
+        }
+        .btn-summary:hover { background: var(--primary); color: #000; }
+
+        /* Content Text Styles */
+        .lesson-body h2 { color: #fff; margin-top: 50px; margin-bottom: 20px; font-size: 1.8rem; border-left: 4px solid var(--primary); padding-left: 15px; }
+        .lesson-body h3 { color: #ddd; margin-top: 30px; margin-bottom: 10px; font-size: 1.4rem; font-weight: bold; }
+        .lesson-body p { color: #ccc; margin-bottom: 20px; font-size: 1.15rem; line-height: 1.8; text-align: justify; }
+        .lesson-body ul { margin-left: 20px; margin-bottom: 20px; color: #ccc; font-size: 1.1rem; }
+        .lesson-body li { margin-bottom: 10px; }
+        .concept-box { background: #222; padding: 25px; margin: 30px 0; border-radius: 8px; border-left: 4px solid var(--primary); }
+
+        /* CLICK-TO-DEFINE STYLES */
+        .term { border-bottom: 1px dashed var(--primary); cursor: help; color: #fff; font-weight: 600; }
+        .term:hover { background: rgba(0, 255, 157, 0.2); }
+
+        /* Definition Toast */
+        #def-toast {
+            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
+            background: #111; border: 1px solid var(--primary); color: #fff;
+            padding: 15px 25px; border-radius: 50px; box-shadow: 0 10px 30px #000;
+            z-index: 5000; display: none; font-size: 0.9rem; text-align: center; min-width: 300px;
+        }
+
+        /* --- CONTACT & FAQ STYLES --- */
+        details { background: var(--bg-panel); border: var(--border); margin-bottom: 10px; border-radius: 8px; padding: 15px; cursor: pointer; transition: 0.2s; }
+        details[open] { border-color: var(--primary); }
+        summary { font-weight: bold; color: #fff; list-style: none; display: flex; justify-content: space-between; align-items: center; }
+        summary::after { content: '+'; font-size: 1.5rem; color: var(--primary); }
+        details[open] summary::after { content: '-'; }
+        .faq-answer { margin-top: 15px; color: #ccc; border-top: 1px solid #333; padding-top: 10px; }
+
+        .form-group { margin-bottom: 20px; }
+        .form-label { display: block; margin-bottom: 8px; color: #aaa; }
+        .form-input { width: 100%; padding: 12px; background: #222; border: 1px solid #444; color: #fff; border-radius: 6px; }
+        textarea.form-input { height: 120px; resize: vertical; }
+
+        /* --- SUMMARY MODAL --- */
+        #summary-modal { position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 6000; display: none; align-items: center; justify-content: center; }
+        .summary-box { background: #1a1a1a; border: 2px solid var(--primary); width: 500px; padding: 30px; border-radius: 15px; position: relative; }
+        .summary-list li { margin-bottom: 15px; color: #ccc; font-size: 1.1rem; }
+        .close-summary { position: absolute; top: 15px; right: 20px; font-size: 1.5rem; cursor: pointer; color: #888; }
+
+        /* --- CERTIFICATE --- */
+        .cert-paper { background: #fff; color: #000; padding: 50px; border: 10px solid var(--gold); max-width: 850px; margin: 0 auto; text-align: center; }
+        .cert-name { font-family: var(--font-serif); font-size: 3.5rem; border-bottom: 2px solid #000; display: inline-block; margin: 20px 0; font-style: italic; min-width: 400px; }
+        .disclaimer-box { margin-top: 30px; background: #ffebee; color: #b71c1c; border: 2px solid #d32f2f; padding: 15px; font-size: 0.85rem; font-weight: bold; font-family: sans-serif; }
+
+        /* --- SETUP MODAL --- */
+        #setup-modal { position: fixed; inset: 0; background: #000; z-index: 9999; display: flex; align-items: center; justify-content: center; }
+        .modal-input-box { background: var(--bg-panel); border: 1px solid var(--primary); padding: 40px; border-radius: 12px; width: 400px; text-align: center; }
+        input { width: 100%; padding: 12px; margin: 10px 0; background: #222; border: 1px solid #444; color: white; border-radius: 6px; }
+
+        /* Module List Buttons */
+        .module-list-btn { background: #222; border: 1px solid #333; padding: 25px; width: 100%; text-align: left; color: white; margin-bottom: 15px; border-radius: 10px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: 0.2s; }
+        .module-list-btn:hover { border-color: var(--primary); background: #262626; }
+        .module-list-btn.completed { border-color: #333; opacity: 0.7; }
+        .module-list-btn.completed::after { content: "✓ Completed"; color: var(--primary); font-weight: bold; }
+
+    </style>
+</head>
+<body>
+
+    <div id="setup-modal">
+        <div class="modal-input-box">
+            <h2 style="color:white; margin-bottom:10px;">Student Registration</h2>
+            <p style="color:#888; margin-bottom:20px;">Create your account to begin.</p>
+            
+            <input type="text" id="input-name" placeholder="Full Legal Name">
+            <input type="password" id="input-password" placeholder="Create Password">
+            
+            <button class="btn-primary" onclick="createProfile()" style="width:100%; margin-top:10px;">Register & Start</button>
+        </div>
+    </div>
+
+    <div id="summary-modal">
+        <div class="summary-box">
+            <span class="close-summary" onclick="closeSummary()">&times;</span>
+            <h2 style="color:var(--primary); margin-bottom: 20px;">⚡ Quick Summary</h2>
+            <ul class="summary-list" id="summary-content"></ul>
+            <button class="btn-primary" onclick="closeSummary()" style="width:100%; margin-top:20px;">Back to Reading</button>
+        </div>
+    </div>
+
+    <div id="def-toast">Definition...</div>
+
+    <nav id="sidebar">
+        <div class="brand">ZERO TO SEO</div>
+        <div class="nav-item active" onclick="showSection('dashboard')">📊 Dashboard</div>
+        <div class="nav-item" onclick="showSection('modules')">📚 Course Content</div>
+        <div class="nav-item gold-item" onclick="showSection('certificate')">🏆 Certificate</div>
+        <div class="nav-item" onclick="showSection('profile')">👤 My Profile</div>
+        <div style="margin: 10px 0; border-top: 1px solid #333;"></div>
+        <div class="nav-item" onclick="showSection('faq')">❓ FAQ</div>
+        <div class="nav-item" onclick="showSection('contact')">📞 Contact & Support</div>
+        
+        <div class="sidebar-footer">
+            <p>© 2025 Zero to SEO</p>
+            <p style="color: var(--primary); font-weight: bold; margin-top:5px;">Made by Pragadish5207</p>
+        </div>
+    </nav>
+
+    <main id="main">
+        <div id="dashboard">
+            <h1 style="margin-bottom: 10px;">Student Dashboard</h1>
+            <p style="color:#888; margin-bottom: 40px;">Welcome back, <span id="dash-name" style="color:var(--primary)">User</span>.</p>
+            <div class="grid">
+                <div class="card">
+                    <h3 style="color:#888;">Modules Completed</h3>
+                    <div style="font-size:2.5rem; font-weight:bold; color:white;"><span id="dash-completed">0</span>/6</div>
+                </div>
+                <div class="card">
+                    <h3 style="color:#888;">Status</h3>
+                    <div id="dash-status" style="font-size:1.5rem; color:var(--primary); margin-top:10px;">In Progress</div>
+                </div>
+            </div>
+            <div class="card" style="margin-top:20px; border-color:var(--primary);">
+                <h3>💡 Pro Tip</h3>
+                <p style="color:#ccc; margin-top:5px;">Click on any <span class="term" style="display:inline;">underlined word</span> in the lessons to see its definition instantly.</p>
+            </div>
+            
+            <div style="margin-top: 50px; text-align: center; color: #444; font-size: 0.9rem;">
+                <p>Designed & Developed by <strong>pragadish5207</strong></p>
+            </div>
+        </div>
+
+        <div id="modules" style="display:none;">
+            <div id="module-list-view">
+                <h1 style="margin-bottom: 30px;">Course Curriculum</h1>
+                <div id="module-container"></div>
+            </div>
+            <div id="content-area">
+                <button onclick="closeModule()" style="background:none; border:none; color:#888; cursor:pointer; margin-bottom:20px;">&larr; Back to List</button>
+                <div id="dynamic-text" class="lesson-body"></div>
+            </div>
+        </div>
+
+        <div id="certificate" style="display:none;">
+            <div style="text-align:center;">
+                <h1 style="margin-bottom: 30px; color:var(--gold);">Certification Center</h1>
+                <div id="cert-locked" style="padding:100px; color:#666; border:1px dashed #333; border-radius:12px;">
+                    <h2>🔒 Locked</h2>
+                    <p>Complete 6 modules to generate your certificate.</p>
+                    <p>Progress: <span id="cert-progress-text">0</span>/6</p>
+                </div>
+                <div id="certificate-view" style="display:none;">
+                    <div class="cert-paper">
+                        <div style="text-transform: uppercase; letter-spacing: 4px; color: #666; font-size: 0.9rem; margin-bottom: 40px;">Zero to SEO Academy • Est. 2025</div>
+                        <h1 style="font-family: 'Playfair Display'; font-size: 3rem; margin-bottom: 10px;">Certificate of Completion</h1>
+                        <p style="color:#555;">This certifies that</p>
+                        <div class="cert-name" id="cert-name-display">Student Name</div>
+                        <p style="color:#444; max-width: 600px; margin: 0 auto; line-height: 1.6;">
+                            Has successfully completed the Professional SEO Foundation Course, demonstrating knowledge in Search Algorithms, Technical SEO, and Content Strategy.
+                        </p>
+                        <div class="disclaimer-box">
+                            ⚠️ CAUTION / DISCLAIMER <br>
+                            This certificate indicates completion of theoretical coursework only. <br>
+                            It does NOT certify the holder as a professional "SEO Expert." <br>
+                            Practical experience is required for professional mastery.
+                        </div>
+                        <div style="margin-top:50px; border-top:1px solid #000; display:inline-block; padding-top:5px; width:200px;">
+                            <strong>Course Director</strong>
+                        </div>
+                        <div style="margin-top:20px; font-size: 0.7rem; color: #888;">
+                            Platform Developed by Pragadish5207
+                        </div>
+                    </div>
+                    <button class="btn-primary" style="margin-top:20px;" onclick="window.print()">🖨️ Print Certificate</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="profile" style="display:none;">
+            <h1 style="margin-bottom: 30px;">My Profile</h1>
+            <div class="card" style="max-width: 500px;">
+                <h2 id="profile-name">Name</h2>
+                
+                <p id="profile-id" style="color:var(--primary); font-family: monospace; font-size: 1.2rem; margin-bottom: 20px;">ID: Loading...</p>
+                
+                <hr style="border-color:#333; margin-bottom: 20px;">
+                <h3>Action Center</h3>
+                <button id="apply-cert-btn" class="btn-gold" style="margin-bottom: 15px;" onclick="goToCert()">Apply for Certificate 🔒</button>
+                <button class="btn-primary" style="background:transparent; border:1px solid red; color:red; width:100%;" onclick="resetData()">Delete Profile & Reset</button>
+            </div>
+        </div>
+
+        <div id="faq" style="display:none;">
+            <h1 style="margin-bottom: 30px;">Frequently Asked Questions</h1>
+            <div style="max-width: 700px;">
+                <details>
+                    <summary>Is this course suitable for complete beginners?</summary>
+                    <div class="faq-answer">Yes! This course starts from the absolute basics (what is a search engine) and moves to advanced topics. No coding knowledge is required.</div>
+                </details>
+                <details>
+                    <summary>Does this certificate guarantee a job?</summary>
+                    <div class="faq-answer">No. This certificate proves you have theoretical knowledge. Employers also look for practical experience. See our Disclaimer for more details.</div>
+                </details>
+                <details>
+                    <summary>Who created this platform?</summary>
+                    <div class="faq-answer">This educational platform was designed and developed by <strong>pragadish5207</strong> as a comprehensive learning tool.</div>
+                </details>
+                <details>
+                    <summary>How long does it take to complete?</summary>
+                    <div class="faq-answer">Most students complete the 6 modules in about 3-4 hours of focused study.</div>
+                </details>
+                <details>
+                    <summary>Can I reset my progress?</summary>
+                    <div class="faq-answer">Yes, go to the "My Profile" tab and click the red "Delete Profile" button.</div>
+                </details>
+            </div>
+        </div>
+
+        <div id="contact" style="display:none;">
+            <h1 style="margin-bottom: 30px;">Contact & Support</h1>
+            <div class="grid">
+                <div class="card">
+                    <h2 style="color: var(--primary);">Get in Touch</h2>
+                    <p style="color:#ccc; margin-bottom: 20px;">Have a question about the course, found a bug, or just want to say hello? Fill out the form below.</p>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Subject</label>
+                        <select class="form-input" id="contact-subject">
+                            <option>General Inquiry</option>
+                            <option>Report a Bug</option>
+                            <option>Feedback</option>
+                            <option>Partnership</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Message</label>
+                        <textarea class="form-input" id="contact-msg" placeholder="Type your message here..."></textarea>
+                    </div>
+                    
+                    <button class="btn-primary" onclick="sendMail()">Send Message</button>
+                    
+                    <div style="margin-top: 30px; border-top: 1px solid #333; padding-top: 20px;">
+                        <p style="color:#888; font-size: 0.9rem;">Direct Email:</p>
+                        <a href="mailto:pragadishwar5207@gmail.com" style="color: var(--primary); text-decoration: none; font-weight: bold;">pragadishwar5207@gmail.com</a>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3>Office Hours</h3>
+                    <p style="color:#ccc;">Monday - Friday</p>
+                    <p style="color:#ccc;">9:00 AM - 6:00 PM</p>
+                    <h3 style="margin-top: 20px;">Response Time</h3>
+                    <p style="color:#ccc;">We usually reply within 24-48 hours.</p>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        // --- DICTIONARY ---
+        const dictionary = {
+            "Spiders": "Automated software bots sent by Google to browse and read websites.",
+            "Crawling": "The process of Google finding new pages on the internet.",
+            "Indexing": "Google filing your page in its massive database library.",
+            "Ranking": "Google's decision on which page is the best answer (#1 to #100).",
+            "Keywords": "Words or phrases users type into the search box.",
+            "Intent": "The 'Why' behind a search (e.g., trying to buy vs trying to learn).",
+            "Long-Tail": "Specific, longer phrases (e.g., 'Red Nike Shoes') that are easier to rank for.",
+            "Title Tag": "The blue clickable headline shown in Google search results.",
+            "Alt Text": "A text description of an image used by Google and screen readers.",
+            "LCP": "Largest Contentful Paint: A metric measuring how fast the main content loads.",
+            "SSL": "Secure Sockets Layer: The technology that encrypts data (the lock icon).",
+            "Backlinks": "Links from other websites pointing to yours. Google sees these as votes.",
+            "SGE": "Search Generative Experience: Google's AI that summarizes answers at the top.",
+            "Algorithm": "The complex math formula Google uses to rank websites.",
+            "SERP": "Search Engine Results Page (the list of links you see after searching)."
+        };
+
+        // --- DETAILED CONTENT ---
+        const content = {
+            1: {
+                title: "1. Fundamentals of Search",
+                desc: "How the engine works.",
+                summary: ["Google is like a Library.", "Crawling = Finding Books.", "Indexing = Filing Books.", "Ranking = Showing Books."],
+                html: `
+                    <div class="lesson-header">
+                        <h1>Module 1: Fundamentals of Search</h1>
+                        <button class="btn-summary" onclick="openSummary(1)">⚡ Quick Summary</button>
+                    </div>
+                    <h2>The Mission of Search</h2>
+                    <p>Before we learn how to rank, we must understand <em>why</em> Google exists. Google's mission is to "organize the world's information and make it universally accessible and useful." As an SEO professional, your goal is not to trick the system, but to help Google achieve this mission. If you provide the best answer to a user's question, Google <em>wants</em> to show you first.</p>
+                    
+                    <h2>The 3 Pillars of Search</h2>
+                    <p>Google works in three distinct stages. Understanding this "pipeline" is crucial for troubleshooting why a site isn't ranking.</p>
+                    
+                    <div class="concept-box">
+                        <h3>1. Crawling (Discovery)</h3>
+                        <p>Imagine the internet is a giant spiderweb. Google sends out robots known as <span class="term" onclick="def('Spiders')">Spiders</span> (or Crawlers) to travel across this web. They find new pages by following links from pages they already know. If your website has no links pointing to it, the spiders may never find it. This process is called <span class="term" onclick="def('Crawling')">Crawling</span>.</p>
+                        
+                        <h3>2. Indexing (Filing)</h3>
+                        <p>Once a spider finds your page, it downloads the content (text, images, video) and analyzes it. It tries to understand what the page is about. If it deems the page valuable, it stores it in a massive database called the "Google Index." Think of this like a librarian filing a book on a shelf. This is <span class="term" onclick="def('Indexing')">Indexing</span>.</p>
+                        
+                        <h3>3. Ranking (Retrieval)</h3>
+                        <p>When a user types a query, Google doesn't search the live internet; it searches its Index. It uses a complex <span class="term" onclick="def('Algorithm')">Algorithm</span> with over 200 factors to decide which page is the most relevant and authoritative. It then displays them in order from #1 to #100. This is <span class="term" onclick="def('Ranking')">Ranking</span>.</p>
+                    </div>
+
+                    <h2>Organic vs. Paid Results</h2>
+                    <p>The Search Engine Results Page (<span class="term" onclick="def('SERP')">SERP</span>) is divided into two distinct areas:</p>
+                    <ul>
+                        <li><strong>Paid Results (PPC):</strong> These usually appear at the very top and are marked "Sponsored." Advertisers pay Google every time someone clicks these links. You can get here instantly if you have money.</li>
+                        <li><strong>Organic Results (SEO):</strong> These appear below the ads. You cannot pay Google to be here. You must earn your spot by having high-quality content and a good reputation. This is where SEO focuses.</li>
+                    </ul>`
+            },
+            2: {
+                title: "2. Keyword Research",
+                desc: "Understanding users.",
+                summary: ["Keywords are what people type.", "Intent matters (Buy vs Learn).", "Long-Tail keywords have less competition."],
+                html: `
+                    <div class="lesson-header">
+                        <h1>Module 2: Keyword Research Mastery</h1>
+                        <button class="btn-summary" onclick="openSummary(2)">⚡ Quick Summary</button>
+                    </div>
+                    <h2>The Foundation of Strategy</h2>
+                    <p><span class="term" onclick="def('Keywords')">Keywords</span> are the words and phrases that people type into search engines. They are the bridge between your business and your customer. Without the right keywords, you are writing content for no one. Keyword research is the process of finding out what your target audience is actually typing.</p>
+
+                    <h2>The Secret Sauce: User Intent</h2>
+                    <p>It is not enough to find a popular word; you must understand <em>why</em> the user searched for it. This is called User <span class="term" onclick="def('Intent')">Intent</span>. Google is very good at determining intent and will only rank pages that match it.</p>
+                    <ul>
+                        <li><strong>Informational Intent:</strong> The user wants to learn something. <em>Example: "How to fix a leaky tap"</em> or <em>"History of India."</em> You should target these with blog posts and guides.</li>
+                        <li><strong>Navigational Intent:</strong> The user wants to find a specific website. <em>Example: "Facebook login"</em> or <em>"HDFC Netbanking."</em> You generally cannot rank for these unless you are that brand.</li>
+                        <li><strong>Transactional Intent:</strong> The user is ready to buy. <em>Example: "Buy iPhone 15 price"</em> or <em>"Order Pizza Online."</em> You should target these with product pages.</li>
+                    </ul>
+
+                    <div class="concept-box">
+                        <h3>Strategy: The Long-Tail</h3>
+                        <p><strong>Short-Tail Keywords</strong> (e.g., "Shoes") are very broad. They have high traffic but insane competition. It is almost impossible for a new site to rank for this.</p>
+                        <p><strong><span class="term" onclick="def('Long-Tail')">Long-Tail</span> Keywords</strong> (e.g., "Red Nike running shoes for men in Surat") are specific phrases (usually 3+ words). They have lower search volume, but very high conversion rates because the user knows exactly what they want. Beginners should always start here.</p>
+                    </div>`
+            },
+            3: {
+                title: "3. On-Page Optimization",
+                desc: "Fixing your content.",
+                summary: ["Title Tag is the most important.", "Use Headings (H1, H2) to structure text.", "Use Alt Text for images."],
+                html: `
+                    <div class="lesson-header">
+                        <h1>Module 3: On-Page Optimization</h1>
+                        <button class="btn-summary" onclick="openSummary(3)">⚡ Quick Summary</button>
+                    </div>
+                    <h2>Speaking Google's Language</h2>
+                    <p>On-Page SEO refers to the optimizations you make directly <em>on your website</em> to help Google understand your content. If Google can't read your page, it can't rank it.</p>
+
+                    <h2>The Title Tag</h2>
+                    <p>The <span class="term" onclick="def('Title Tag')">Title Tag</span> is the clickable blue headline you see in Google search results. It is the <strong>single most important</strong> on-page ranking factor. It tells Google and the user what the page is about in a split second.</p>
+                    <p><strong>Best Practices:</strong> Keep it under 60 characters so it doesn't get cut off. Place your primary keyword near the beginning. Make it catchy to improve your Click-Through Rate (CTR).</p>
+
+                    <h2>Heading Structure (H1, H2, H3)</h2>
+                    <p>Headings structure your page like a textbook. They help users skim and help Spiders understand hierarchy.</p>
+                    <ul>
+                        <li><strong>H1 Tag:</strong> This is the main title of the page. You should only have <strong>one</strong> H1 per page. It should include your main topic.</li>
+                        <li><strong>H2 Tags:</strong> These are your main chapters or sections.</li>
+                        <li><strong>H3 Tags:</strong> These are sub-points inside your sections.</li>
+                    </ul>
+
+                    <div class="concept-box">
+                        <h3>Image SEO</h3>
+                        <p>Google's bots cannot "see" images like humans do. You must provide <span class="term" onclick="def('Alt Text')">Alt Text</span> (Alternative Text) in the HTML code. This is a text description of the image. For example, instead of naming a file "img123.jpg", name it "black-leather-office-chair.jpg" and set the Alt Text to "Modern black leather office chair." This helps you rank in Google Images and helps blind users using screen readers.</p>
+                    </div>`
+            },
+            4: {
+                title: "4. Technical SEO",
+                desc: "Speed and Health.",
+                summary: ["Slow sites lose rank.", "Secure sites (SSL) win trust.", "Mobile-First is the rule."],
+                html: `
+                    <div class="lesson-header">
+                        <h1>Module 4: Technical SEO</h1>
+                        <button class="btn-summary" onclick="openSummary(4)">⚡ Quick Summary</button>
+                    </div>
+                    <h2>The Foundation of Performance</h2>
+                    <p>Technical SEO involves optimizing the infrastructure of your website. It doesn't matter how good your content is if your website is broken, buggy, or slow. Technical SEO ensures that Google can crawl and index your site without issues.</p>
+
+                    <h2>Core Web Vitals & Speed</h2>
+                    <p>Google explicitly uses page speed as a ranking factor. Users are impatient; if your site takes more than 3 seconds to load, most people will leave (bounce). Google uses a set of metrics called "Core Web Vitals." The most important is <span class="term" onclick="def('LCP')">LCP</span> (Largest Contentful Paint), which measures how fast the main content becomes visible.</p>
+
+                    <h2>Mobile-First Indexing</h2>
+                    <p>In the past, Google looked at the desktop version of a site. Today, Google uses <strong>Mobile-First Indexing</strong>. This means Google looks at the <strong>Mobile Version</strong> of your website to decide your ranking. If your site works great on a laptop but is broken on a phone, your rankings will crash.</p>
+
+                    <div class="concept-box">
+                        <h3>Security (HTTPS)</h3>
+                        <p>Look for the padlock icon 🔒 in the browser address bar. This means the site uses <span class="term" onclick="def('SSL')">SSL</span> (Secure Sockets Layer). It encrypts data between the user and the server. Google warns users away from non-secure (HTTP) sites, labeling them "Not Secure." This destroys user trust and hurts rankings.</p>
+                    </div>`
+            },
+            5: {
+                title: "5. Content Strategy",
+                desc: "Authority and Trust.",
+                summary: ["E-E-A-T is the quality standard.", "Content is King.", "Backlinks are votes of confidence."],
+                html: `
+                    <div class="lesson-header">
+                        <h1>Module 5: Content Strategy</h1>
+                        <button class="btn-summary" onclick="openSummary(5)">⚡ Quick Summary</button>
+                    </div>
+                    <h2>"Content is King"</h2>
+                    <p>This is the oldest saying in SEO, but it remains true. Google's ultimate goal is to satisfy the user. Thin, copied (plagiarized), or boring content will never rank long-term. You need to create content that is better than everything else on the first page.</p>
+
+                    <h2>The E-E-A-T Framework</h2>
+                    <p>Google's Quality Raters use a guideline called E-E-A-T to judge content quality. If you want to rank for important topics (especially health or money), you need high E-E-A-T.</p>
+                    <ul>
+                        <li><strong>Experience:</strong> Does the author have first-hand experience? (e.g., A review from someone who actually used the product).</li>
+                        <li><strong>Expertise:</strong> Is the author a subject matter expert? (e.g., A doctor writing about medicine).</li>
+                        <li><strong>Authoritativeness:</strong> Is the website a known leader in its industry?</li>
+                        <li><strong>Trustworthiness:</strong> Is the content accurate, cited, and the site secure?</li>
+                    </ul>
+
+                    <div class="concept-box">
+                        <h3>Off-Page SEO: Backlinks</h3>
+                        <p>A <span class="term" onclick="def('Backlinks')">Backlink</span> is when another website links to your website. Google treats these links like "votes of confidence." If a high-authority site like Wikipedia or The Times of India links to you, Google assumes your site must be credible. Quality matters more than quantity—one great link is worth more than 100 bad ones.</p>
+                    </div>`
+            },
+            6: {
+                title: "6. Future Technologies",
+                desc: "AI and Changes.",
+                summary: ["AI (SGE) answers questions directly.", "Focus on Human stories.", "Voice search is conversational."],
+                html: `
+                    <div class="lesson-header">
+                        <h1>Module 6: Future Technologies</h1>
+                        <button class="btn-summary" onclick="openSummary(6)">⚡ Quick Summary</button>
+                    </div>
+                    <h2>The AI Revolution</h2>
+                    <p>Search is undergoing its biggest change in 20 years. Google is integrating AI (like Gemini) directly into search results. This is called <span class="term" onclick="def('SGE')">SGE</span> (Search Generative Experience). Instead of a list of 10 blue links, users now see an AI-generated summary answering their question instantly at the top of the page.</p>
+
+                    <h2>How to Survive AI Search</h2>
+                    <p>If AI answers the simple facts, why would anyone click your website? The answer is <strong>Human Insight</strong>. AI can summarize facts, but it cannot replicate personal stories, unique data, strong opinions, or emotional connection. To win in the future, your content must be more human, more personal, and more unique.</p>
+
+                    <div class="concept-box">
+                        <h3>Voice Search Optimization</h3>
+                        <p>With the rise of smart speakers like Alexa and Siri, people are searching with their voices. Voice searches are different—they are conversational and longer. Instead of typing "Weather Paris," people ask "What is the weather like in Paris right now?" You must optimize your content to answer these natural language questions directly.</p>
+                    </div>`
+            }
+        };
+
+        // --- APP LOGIC ---
+        let user = { name: "", id: "", completed: [] };
+        let currentId = 1;
+
+        window.onload = function() {
+            const saved = localStorage.getItem('seo_v6_1');
+            if (saved) {
+                user = JSON.parse(saved);
+                document.getElementById('setup-modal').style.display = 'none';
+                updateUI();
+            } else {
+                document.getElementById('setup-modal').style.display = 'flex';
+            }
+        };
+
+        function createProfile() {
+            const name = document.getElementById('input-name').value;
+            const pass = document.getElementById('input-password').value;
+            if (name && pass) {
+                user.name = name; 
+                // Generate a random student ID
+                user.id = "STU-" + Math.floor(10000 + Math.random() * 90000);
+                saveData();
+                document.getElementById('setup-modal').style.display = 'none';
+                updateUI();
+            }
+        }
+
+        function saveData() { localStorage.setItem('seo_v6_1', JSON.stringify(user)); }
+        
+        function def(word) {
+            const toast = document.getElementById('def-toast');
+            toast.innerText = word + ": " + (dictionary[word] || "Definition not found.");
+            toast.style.display = 'block';
+            setTimeout(() => { toast.style.display = 'none'; }, 4000);
+        }
+
+        function openSummary(id) {
+            const list = document.getElementById('summary-content');
+            list.innerHTML = "";
+            content[id].summary.forEach(point => { list.innerHTML += `<li>${point}</li>`; });
+            document.getElementById('summary-modal').style.display = 'flex';
+        }
+
+        function closeSummary() { document.getElementById('summary-modal').style.display = 'none'; }
+
+        function updateUI() {
+            document.getElementById('dash-name').innerText = user.name;
+            document.getElementById('profile-name').innerText = user.name;
+            document.getElementById('profile-id').innerText = "Student ID: " + user.id;
+            document.getElementById('dash-completed').innerText = user.completed.length;
+            document.getElementById('cert-progress-text').innerText = user.completed.length;
+
+            const applyBtn = document.getElementById('apply-cert-btn');
+            if(user.completed.length === 6) {
+                applyBtn.disabled = false;
+                applyBtn.innerHTML = "🏆 Apply for Certificate";
+                applyBtn.style.background = "var(--gold)";
+                document.getElementById('dash-status').innerText = "Course Completed";
+            } else {
+                applyBtn.disabled = true;
+                applyBtn.innerHTML = `Locked (${user.completed.length}/6 modules)`;
+                applyBtn.style.background = "#333";
+            }
+            renderModuleList();
+        }
+
+        function renderModuleList() {
+            const container = document.getElementById('module-container');
+            container.innerHTML = "";
+            for (let i = 1; i <= 6; i++) {
+                const isDone = user.completed.includes(i);
+                const btn = document.createElement('div');
+                btn.className = `module-list-btn ${isDone ? 'completed' : ''}`;
+                btn.onclick = () => loadModule(i);
+                btn.innerHTML = `<div><strong>${content[i].title}</strong><small>${content[i].desc}</small></div><span>${isDone ? '✅' : '👉'}</span>`;
+                container.appendChild(btn);
+            }
+        }
+
+        function loadModule(id) {
+            currentId = id;
+            document.getElementById('module-list-view').style.display = 'none';
+            document.getElementById('content-area').style.display = 'block';
+            document.getElementById('dynamic-text').innerHTML = content[id].html + 
+                `<button class="btn-primary" style="margin-top:40px; width:100%;" onclick="finishAndNext()">✅ Mark Completed & Next</button>`;
+            document.getElementById('main').scrollTop = 0;
+        }
+
+        function closeModule() {
+            document.getElementById('content-area').style.display = 'none';
+            document.getElementById('module-list-view').style.display = 'block';
+        }
+
+        function finishAndNext() {
+            if (!user.completed.includes(currentId)) {
+                user.completed.push(currentId);
+                saveData();
+            }
+            if (currentId < 6) loadModule(currentId + 1);
+            else { updateUI(); showSection('dashboard'); alert("Course Completed! Go to Profile to apply for Certificate."); }
+        }
+
+        function goToCert() { showSection('certificate'); }
+
+        function showSection(id) {
+            ['dashboard', 'modules', 'certificate', 'profile', 'faq', 'contact'].forEach(s => document.getElementById(s).style.display = 'none');
+            document.getElementById(id).style.display = 'block';
+            
+            if(id === 'certificate' && user.completed.length === 6) {
+                document.getElementById('cert-locked').style.display = 'none';
+                document.getElementById('certificate-view').style.display = 'block';
+                document.getElementById('cert-name-display').innerText = user.name;
+            }
+            
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            if(event && event.target.classList.contains('nav-item')) event.target.classList.add('active');
+        }
+
+        function resetData() {
+            if(confirm("Delete all progress?")) { localStorage.removeItem('seo_v6_1'); location.reload(); }
+        }
+
+        function sendMail() {
+            const subject = document.getElementById('contact-subject').value;
+            const msg = document.getElementById('contact-msg').value;
+            const link = `mailto:pragadishwar5207@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(msg)}`;
+            window.location.href = link;
+        }
+    </script>
+</body>
+</html>
